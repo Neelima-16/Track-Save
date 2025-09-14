@@ -33,7 +33,7 @@ export const users = pgTable("users", {
   firstName: varchar("first_name"),
   lastName: varchar("last_name"),
   profileImageUrl: varchar("profile_image_url"),
-  defaultCurrency: varchar("default_currency").default("USD"),
+  defaultCurrency: varchar("default_currency").default("INR"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -54,7 +54,7 @@ export const transactions = pgTable("transactions", {
   amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
   category: categoryEnum("category").notNull(),
   date: date("date").notNull(),
-  currency: varchar("currency").default("USD"),
+  currency: varchar("currency").default("INR"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -66,7 +66,7 @@ export const budgets = pgTable("budgets", {
   category: categoryEnum("category").notNull(),
   amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
   period: varchar("period").default("monthly"), // monthly, weekly, yearly
-  currency: varchar("currency").default("USD"),
+  currency: varchar("currency").default("INR"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -80,7 +80,7 @@ export const goals = pgTable("goals", {
   targetAmount: decimal("target_amount", { precision: 10, scale: 2 }).notNull(),
   currentAmount: decimal("current_amount", { precision: 10, scale: 2 }).default("0"),
   targetDate: date("target_date"),
-  currency: varchar("currency").default("USD"),
+  currency: varchar("currency").default("INR"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });

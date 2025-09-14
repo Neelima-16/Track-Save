@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
+import { useCurrency } from "@/providers/CurrencyProvider";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -19,9 +20,9 @@ import type { Transaction } from "@shared/schema";
 export default function Reports() {
   const { isAuthenticated, isLoading } = useAuth();
   const { toast } = useToast();
+  const { formatCurrency } = useCurrency();
   const [reportPeriod, setReportPeriod] = useState("month");
   const [reportType, setReportType] = useState("overview");
-  const [currency, setCurrency] = useState("USD");
 
   // Redirect to home if not authenticated
   useEffect(() => {
@@ -93,13 +94,6 @@ export default function Reports() {
       title: "Coming Soon",
       description: "PDF export functionality will be available soon",
     });
-  };
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: currency
-    }).format(amount);
   };
 
   const calculateNetWorth = () => {
@@ -187,7 +181,7 @@ export default function Reports() {
       {/* Report Filters */}
       <Card>
         <CardContent className="p-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-card-foreground mb-2">
                 Report Period
@@ -226,27 +220,6 @@ export default function Reports() {
                   <SelectItem value="spending">Spending Analysis</SelectItem>
                   <SelectItem value="trends">Trend Analysis</SelectItem>
                   <SelectItem value="goals">Goal Progress</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-card-foreground mb-2">
-                Currency
-              </label>
-              <Select 
-                value={currency} 
-                onValueChange={setCurrency}
-                data-testid="select-report-currency"
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="USD">USD ($)</SelectItem>
-                  <SelectItem value="EUR">EUR (€)</SelectItem>
-                  <SelectItem value="GBP">GBP (£)</SelectItem>
-                  <SelectItem value="JPY">JPY (¥)</SelectItem>
                 </SelectContent>
               </Select>
             </div>

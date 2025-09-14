@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
+import { useCurrency } from "@/providers/CurrencyProvider";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -19,6 +20,7 @@ import type { Transaction } from "@shared/schema";
 export default function Dashboard() {
   const { isAuthenticated, isLoading } = useAuth();
   const { toast } = useToast();
+  const { formatCurrency } = useCurrency();
 
   // Redirect to home if not authenticated
   useEffect(() => {
@@ -70,13 +72,6 @@ export default function Dashboard() {
   if (!isAuthenticated) {
     return null;
   }
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(amount);
-  };
 
   const formatPercentage = (value: number) => {
     return `${value.toFixed(1)}%`;

@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { DollarSign, TrendingUp, PiggyBank, Target, BarChart3, Shield } from "lucide-react";
+import { DollarSign, TrendingUp, Target, BarChart3, Shield } from "lucide-react";
 
 export default function Landing() {
   const handleLogin = () => {
+    // Since we're running on localhost:4000, redirect to the login endpoint
     window.location.href = "/api/login";
   };
 
@@ -13,12 +14,16 @@ export default function Landing() {
       <header className="border-b border-border">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <DollarSign className="w-5 h-5 text-primary-foreground" />
+            <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+              <span className="text-white font-bold text-sm">F</span>
             </div>
             <h1 className="text-xl font-bold text-foreground">FinanceTracker</h1>
           </div>
-          <Button onClick={handleLogin} data-testid="button-login">
+          <Button 
+            onClick={handleLogin} 
+            data-testid="button-login" 
+            className="bg-blue-500 hover:bg-blue-600"
+          >
             Sign In
           </Button>
         </div>
@@ -34,7 +39,11 @@ export default function Landing() {
             Track expenses, manage budgets, set goals, and get insights into your spending habits. 
             Your comprehensive personal finance companion.
           </p>
-          <Button size="lg" onClick={handleLogin} data-testid="button-get-started">
+          <Button 
+            onClick={handleLogin} 
+            data-testid="button-get-started" 
+            className="bg-blue-500 hover:bg-blue-600 px-8 py-3 text-lg"
+          >
             Get Started
           </Button>
         </div>
@@ -49,7 +58,7 @@ export default function Landing() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Card>
               <CardHeader>
-                <TrendingUp className="w-10 h-10 text-primary mb-2" />
+                <TrendingUp className="w-10 h-10 text-blue-500 mb-2" />
                 <CardTitle>Expense Tracking</CardTitle>
                 <CardDescription>
                   Monitor your income and expenses with detailed categorization and insights.
@@ -59,7 +68,7 @@ export default function Landing() {
             
             <Card>
               <CardHeader>
-                <PiggyBank className="w-10 h-10 text-primary mb-2" />
+                <Shield className="w-10 h-10 text-blue-500 mb-2" />
                 <CardTitle>Budget Management</CardTitle>
                 <CardDescription>
                   Set monthly budgets for different categories and receive alerts when you exceed limits.
@@ -69,7 +78,7 @@ export default function Landing() {
             
             <Card>
               <CardHeader>
-                <Target className="w-10 h-10 text-primary mb-2" />
+                <Target className="w-10 h-10 text-blue-500 mb-2" />
                 <CardTitle>Goal Setting</CardTitle>
                 <CardDescription>
                   Define financial goals and track your progress with visual indicators.
@@ -79,7 +88,7 @@ export default function Landing() {
             
             <Card>
               <CardHeader>
-                <BarChart3 className="w-10 h-10 text-primary mb-2" />
+                <BarChart3 className="w-10 h-10 text-blue-500 mb-2" />
                 <CardTitle>Visual Analytics</CardTitle>
                 <CardDescription>
                   Get detailed reports and charts to understand your spending patterns.
@@ -89,7 +98,7 @@ export default function Landing() {
             
             <Card>
               <CardHeader>
-                <Shield className="w-10 h-10 text-primary mb-2" />
+                <Shield className="w-10 h-10 text-blue-500 mb-2" />
                 <CardTitle>Secure & Private</CardTitle>
                 <CardDescription>
                   Your financial data is encrypted and securely stored with industry-standard protection.
@@ -99,7 +108,7 @@ export default function Landing() {
             
             <Card>
               <CardHeader>
-                <DollarSign className="w-10 h-10 text-primary mb-2" />
+                <DollarSign className="w-10 h-10 text-blue-500 mb-2" />
                 <CardTitle>Multi-Currency</CardTitle>
                 <CardDescription>
                   Support for multiple currencies with automatic conversion for global users.
@@ -119,7 +128,11 @@ export default function Landing() {
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Join thousands of users who have already taken control of their finances with FinanceTracker.
           </p>
-          <Button size="lg" onClick={handleLogin} data-testid="button-start-tracking">
+          <Button 
+            onClick={handleLogin} 
+            data-testid="button-start-tracking" 
+            className="bg-blue-500 hover:bg-blue-600 px-8 py-3 text-lg"
+          >
             Start Tracking Now
           </Button>
         </div>

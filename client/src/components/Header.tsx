@@ -1,5 +1,6 @@
 import { useAuth } from "@/hooks/useAuth";
 import { useTheme } from "@/providers/ThemeProvider";
+import { useCurrency, currencies } from "@/providers/CurrencyProvider";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -16,19 +17,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { DollarSign, Moon, Sun, User, LogOut } from "lucide-react";
-import { useState } from "react";
-
-const currencies = [
-  { value: "USD", label: "USD ($)" },
-  { value: "EUR", label: "EUR (€)" },
-  { value: "GBP", label: "GBP (£)" },
-  { value: "JPY", label: "JPY (¥)" },
-];
 
 export function Header() {
   const { user } = useAuth();
   const { theme, toggleTheme } = useTheme();
-  const [currency, setCurrency] = useState("USD");
+  const { currency, setCurrency } = useCurrency();
 
   const handleLogout = () => {
     window.location.href = "/api/logout";
