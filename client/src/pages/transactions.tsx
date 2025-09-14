@@ -59,7 +59,11 @@ export default function Transactions() {
       return await apiRequest("DELETE", `/api/transactions/${id}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/transactions"] });
+      // Invalidate all transaction queries (base key and filtered queries)
+      queryClient.invalidateQueries({ 
+        queryKey: ["/api/transactions"],
+        exact: false 
+      });
       queryClient.invalidateQueries({ queryKey: ["/api/dashboard"] });
       toast({
         title: "Success",

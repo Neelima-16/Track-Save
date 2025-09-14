@@ -208,9 +208,12 @@ export class DatabaseStorage implements IStorage {
     monthlyExpenses: number;
     savingsRate: number;
   }> {
-    const currentMonth = new Date().toISOString().slice(0, 7); // YYYY-MM format
-    const startOfMonth = `${currentMonth}-01`;
-    const endOfMonth = `${currentMonth}-31`;
+    const now = new Date();
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0); // Last day of current month
+    
+    const startOfMonthStr = startOfMonth.toISOString().slice(0, 10); // YYYY-MM-DD format
+    const endOfMonthStr = endOfMonth.toISOString().slice(0, 10); // YYYY-MM-DD format
 
     // Get monthly income
     const incomeResult = await db
@@ -219,8 +222,8 @@ export class DatabaseStorage implements IStorage {
       .where(and(
         eq(transactions.userId, userId),
         eq(transactions.type, 'income'),
-        gte(transactions.date, startOfMonth),
-        lte(transactions.date, endOfMonth)
+        gte(transactions.date, startOfMonthStr),
+        lte(transactions.date, endOfMonthStr)
       ));
 
     // Get monthly expenses
@@ -230,8 +233,8 @@ export class DatabaseStorage implements IStorage {
       .where(and(
         eq(transactions.userId, userId),
         eq(transactions.type, 'expense'),
-        gte(transactions.date, startOfMonth),
-        lte(transactions.date, endOfMonth)
+        gte(transactions.date, startOfMonthStr),
+        lte(transactions.date, endOfMonthStr)
       ));
 
     const monthlyIncome = Number(incomeResult[0]?.total || 0);

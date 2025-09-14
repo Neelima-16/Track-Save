@@ -87,11 +87,15 @@ export function TransactionModal({ open, onOpenChange, transaction }: Transactio
       
       return await apiRequest(method, url, {
         ...data,
-        amount: parseFloat(data.amount),
+        amount: data.amount, // Keep as string for backend decimal field
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/transactions"] });
+      // Invalidate all transaction queries (base key and filtered queries)
+      queryClient.invalidateQueries({ 
+        queryKey: ["/api/transactions"],
+        exact: false 
+      });
       queryClient.invalidateQueries({ queryKey: ["/api/dashboard"] });
       toast({
         title: "Success",
